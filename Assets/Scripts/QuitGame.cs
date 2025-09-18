@@ -13,6 +13,7 @@ public class QuitGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //When the player pushes down on esc key, they will quit the application
             Application.Quit();
         }
     }
