@@ -11,6 +11,9 @@ public class SpriteMover : MonoBehaviour
     public float minY;
     public float maxY;
 
+    //Private variables x and y
+    private float x;
+    private float y;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,8 +32,8 @@ public class SpriteMover : MonoBehaviour
 
            Transform player = GetComponent<Transform>();
 
-           float x = Random.Range(minX, maxX);
-           float y = Random.Range(minY, maxY);
+           x = Random.Range(minX, maxX);
+           y = Random.Range(minY, maxY);
            player.position = new Vector3(x, y, 0);
         }
     }
