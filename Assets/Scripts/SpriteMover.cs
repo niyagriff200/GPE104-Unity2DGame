@@ -11,7 +11,7 @@ public class SpriteMover : MonoBehaviour
     public float minY;
     public float maxY;
 
-    //Private variables x and y
+    //Private variables x and y for random range
     private float x;
     private float y;
 
@@ -25,11 +25,8 @@ public class SpriteMover : MonoBehaviour
     void Update()
     {
         //If the player presses down on the Space Key, move a to a random position in range (minX, maxX) and (minY, maxY)
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            //Update in console
-           Debug.Log("The ship HAS moved");
-
            Transform player = GetComponent<Transform>();
 
            x = Random.Range(minX, maxX);
