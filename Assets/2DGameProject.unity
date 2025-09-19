@@ -401,9 +401,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98eab345035d2274e807e46a2515b860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  turboSpeed: 0
+  moveSpeed: 3
+  turboSpeed: 10
   rotateSpeed: 180
+  teleportDistance: 3
 --- !u!114 &851838329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,9 +418,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minX: 1
-  maxX: 3
+  maxX: 5
   minY: 1
-  maxY: 3
+  maxY: 5
 --- !u!1 &1913766022
 GameObject:
   m_ObjectHideFlags: 0

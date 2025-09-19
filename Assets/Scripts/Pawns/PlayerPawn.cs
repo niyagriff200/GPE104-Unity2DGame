@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class PlayerPawn : Pawn
 {
+    //Public scopes
     public float moveSpeed;
     public float turboSpeed;
     public float rotateSpeed;
     public float teleportDistance;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
+
+    //Private scopes
+    private float x;
+    private float y;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +27,7 @@ public class PlayerPawn : Pawn
     {
         
     }
-
+    //Overrides
     public override void Move(Vector3 moveVector)
     {
         transform.position += (moveVector * moveSpeed) * Time.deltaTime;
@@ -34,6 +44,13 @@ public class PlayerPawn : Pawn
     public override void MoveTurbo(Vector3 moveVector)
     {
         transform.position += (moveVector * turboSpeed) * Time.deltaTime;
+    }
+
+    public override void TeleportRandom()
+    {
+        x = Random.Range(minX, maxX);
+        y = Random.Range(minY, maxY);
+        transform.position = new Vector3(x, y, 0);
     }
     
 }

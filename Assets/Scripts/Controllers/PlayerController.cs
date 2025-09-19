@@ -33,7 +33,7 @@ public class PlayerController : Controller
             //Check if LShift or RShift is being pressed
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                pawn.MoveTurbo(pawn.transform.up);
+                pawn.MoveTurbo(-pawn.transform.up);
             }
             else
             { 
@@ -70,6 +70,12 @@ public class PlayerController : Controller
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             pawn.Teleport(Vector3.right);
+        }
+
+        //Random Teleport using T
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            pawn.TeleportRandom();
         }
     }
 }

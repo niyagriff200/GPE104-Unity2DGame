@@ -7,4 +7,6 @@ public abstract class Pawn : MonoBehaviour
     public abstract void Teleport(Vector3 direction);
 
     public abstract void MoveTurbo(Vector3 moveVector);
+
+    public abstract void TeleportRandom();
 }
