@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private float maxHealth = 10.0f;
+    public float maxHealth = 10.0f;
     private float currentHealth;
 
     private void Start()
@@ -23,7 +23,14 @@ public class Health : MonoBehaviour
         {
             currentHealth = 0;
             Death death = GetComponent<Death>();
-            if (death != null) death.Die(); // Handles missing death component safely
+            if (death != null)
+            {
+                death.Die();
+            }
+            else
+            {
+                Debug.LogWarning(gameObject + " doesn't have a Death Component.");
+            }
         }
     }
 
@@ -46,6 +53,13 @@ public class Health : MonoBehaviour
     {
         currentHealth = 0;
         Death death = GetComponent<Death>();
-        if (death != null) death.Die(); // Handles missing death component safely
+        if (death != null)
+        {
+            death.Die();
+        }
+        else
+        {
+            Debug.LogWarning(gameObject + " doesn't have a Death Component.");
+        }
     }
 }
