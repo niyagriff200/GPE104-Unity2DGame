@@ -10,7 +10,7 @@ public class DamageOnCollision : MonoBehaviour
         Health health = other.gameObject.GetComponent<Health>();
         if (health != null)
         {
-            if (instantKill) 
+            if (instantKill)
             {
                 health.InstaKill();
             }
@@ -19,30 +19,24 @@ public class DamageOnCollision : MonoBehaviour
                 health.TakeDamage(damageAmount);
             }
 
-            KnockbackOnDamage knockback = other.gameObject.GetComponent<KnockbackOnDamage>();
-            if (knockback != null)
-            {
-                Vector3 hitDirection = other.transform.position - transform.position;
-                knockback.ApplyKnockback(hitDirection);
-            }
-
             DamageFlash flash = other.gameObject.GetComponent<DamageFlash>();
             if (flash != null)
             {
                 flash.Flash();
             }
 
+
             CameraShake shake = Camera.main.GetComponent<CameraShake>();
             if (shake != null)
             {
                 shake.Shake();
             }
-
-
         }
-        else
+
+        Death death = GetComponent<Death>();
+        if (death != null)
         {
-            Debug.LogWarning(other.gameObject + " doesn't have Health Component.");
+            death.Die();
         }
     }
 }

@@ -26,6 +26,8 @@ public class Health : MonoBehaviour
             if (death != null)
             {
                 death.Die();
+                
+
             }
             else
             {
@@ -56,6 +58,8 @@ public class Health : MonoBehaviour
         if (death != null)
         {
             death.Die();
+            GameManager.instance.LoseGame();
+
         }
         else
         {

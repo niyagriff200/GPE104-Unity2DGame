@@ -4,40 +4,58 @@ public class DamageFlash : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Color flashColor = Color.red;
-    public float flashDuration = 0.1f;
+    public Color normalColor = Color.white;
+    public float flashDuration = 0.5f;
 
-    private Color originalColor;
-    private float timer = 0f;
     private bool isFlashing = false;
+    private float flashTimer = 0f;
+    private bool flashActive = false;
 
     private void Start()
     {
         if (spriteRenderer == null)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
-        originalColor = spriteRenderer.color;
-    }
-
-    public void Flash()
-    {
-        spriteRenderer.color = flashColor;
-        timer = flashDuration;
-        isFlashing = true;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = normalColor;
+        }
     }
 
     private void Update()
     {
         if (isFlashing)
         {
-            timer -= Time.deltaTime;
+            flashTimer -= Time.deltaTime;
+            Debug.Log("Flash timer: " + flashTimer);
 
-            if (timer <= 0f)
+            if (flashTimer <= 0f)
             {
-                spriteRenderer.color = originalColor;
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = normalColor;
+                }
+
                 isFlashing = false;
+                flashActive = false;
+                Debug.Log("Flash ended.");
             }
+        }
+    }
+
+    public void Flash()
+    {
+        if (flashActive) return;
+        flashActive = true;
+
+        if (spriteRenderer != null)
+        {
+            isFlashing = true;
+            flashTimer = flashDuration;
+            spriteRenderer.color = flashColor;
+            Debug.Log("Flash triggered. Timer set to: " + flashTimer);
         }
     }
 }
