@@ -4,72 +4,73 @@ public class PlayerController : Controller
 {
     public Pawn pawn;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
-        //Local Space Inputs
-        if (Input.GetKey(KeyCode.W))
+        if (pawn != null)
         {
-            //Check if LShift or RShift is being pressed
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) 
+            if (Input.GetKey(KeyCode.W))
             {
-                pawn.MoveTurbo(pawn.transform.up);
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    pawn.MoveTurbo(pawn.transform.up);
+                }
+                else
+                {
+                    pawn.Move(pawn.transform.up);
+                }
             }
-            else 
+
+            if (Input.GetKey(KeyCode.S))
             {
-                pawn.Move(pawn.transform.up);
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    pawn.MoveTurbo(-pawn.transform.up);
+                }
+                else
+                {
+                    pawn.Move(-pawn.transform.up);
+                }
             }
-        }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            //Check if LShift or RShift is being pressed
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            if (Input.GetKey(KeyCode.A))
             {
-                pawn.MoveTurbo(-pawn.transform.up);
+                pawn.Rotate(1.0f);
             }
-            else
-            { 
-                pawn.Move(-pawn.transform.up);
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                pawn.Rotate(-1.0f);
             }
-        }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            pawn.Rotate(1.0f);
-        }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                pawn.Teleport(Vector3.up);
+            }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            pawn.Rotate(-1.0f);
-        }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                pawn.Teleport(Vector3.down);
+            }
 
-        //World Space Inputs for teleport
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            pawn.Teleport(Vector3.up);
-        }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                pawn.Teleport(Vector3.left);
+            }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow)) 
-        {
-            pawn.Teleport(Vector3.down);
-        }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                pawn.Teleport(Vector3.right);
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
-        {
-            pawn.Teleport(Vector3.left);
-        }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                pawn.TeleportRandom();
+            }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            pawn.Teleport(Vector3.right);
-        }
-
-        //Random Teleport using T
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            pawn.TeleportRandom();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                pawn.shooter.Shoot();
+            }
         }
     }
 }

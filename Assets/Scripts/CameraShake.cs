@@ -4,6 +4,7 @@ public class CameraShake : MonoBehaviour
 {
     public float shakeIntensity = 0.1f;
     public float shakeDuration = 0.2f;
+
     private Vector3 originalPosition;
     private float timer;
 

@@ -7,4 +7,3 @@ public class DeathDestroy : Death
         Destroy(gameObject);
     }
 }
-

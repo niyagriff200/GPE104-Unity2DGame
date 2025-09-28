@@ -23,7 +23,10 @@ public class LowHealthFlash : MonoBehaviour
             health = GetComponent<Health>();
         }
 
-        spriteRenderer.color = normalColor;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = normalColor;
+        }
     }
 
     private void Update()
@@ -37,7 +40,8 @@ public class LowHealthFlash : MonoBehaviour
                 if (flashTimer <= 0f)
                 {
                     isFlashing = !isFlashing;
-                    if (isFlashing)
+
+                    if (isFlashing == true)
                     {
                         spriteRenderer.color = flashColor;
                     }

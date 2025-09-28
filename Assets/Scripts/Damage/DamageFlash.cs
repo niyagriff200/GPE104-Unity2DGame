@@ -4,40 +4,55 @@ public class DamageFlash : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Color flashColor = Color.red;
-    public float flashDuration = 0.1f;
+    public Color normalColor = Color.white;
+    public float flashDuration = 0.5f;
 
-    private Color originalColor;
-    private float timer = 0f;
     private bool isFlashing = false;
+    private float flashTimer = 0f;
 
     private void Start()
     {
+        // Try to find the sprite renderer if not assigned
         if (spriteRenderer == null)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
-        originalColor = spriteRenderer.color;
-    }
-
-    public void Flash()
-    {
-        spriteRenderer.color = flashColor;
-        timer = flashDuration;
-        isFlashing = true;
+        // Set the default color
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = normalColor;
+        }
     }
 
     private void Update()
     {
-        if (isFlashing)
+        // If flashing is active, count down the timer
+        if (isFlashing == true)
         {
-            timer -= Time.deltaTime;
+            flashTimer -= Time.deltaTime;
 
-            if (timer <= 0f)
+            if (flashTimer <= 0f)
             {
-                spriteRenderer.color = originalColor;
+                // Reset color and stop flashing
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = normalColor;
+                }
+
                 isFlashing = false;
             }
+        }
+    }
+
+    public void Flash()
+    {
+        // Start the flash effect
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = flashColor;
+            flashTimer = flashDuration;
+            isFlashing = true;
         }
     }
 }

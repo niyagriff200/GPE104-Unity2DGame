@@ -13,19 +13,30 @@ public class Health : MonoBehaviour
     public void Heal(float health)
     {
         currentHealth += health;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
     }
 
     public void TakeDamage(float health)
     {
         currentHealth -= health;
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+
             Death death = GetComponent<Death>();
+
             if (death != null)
             {
                 death.Die();
+                if (GetComponent<PlayerPawn>() != null)
+                { 
+                    GameManager.instance.LoseGame(); 
+                }
             }
             else
             {
@@ -41,7 +52,7 @@ public class Health : MonoBehaviour
 
     public float PercentHealth()
     {
-        return (float)currentHealth / maxHealth;
+        return currentHealth / maxHealth;
     }
 
     public void HealToFull()
@@ -52,10 +63,16 @@ public class Health : MonoBehaviour
     public void InstaKill()
     {
         currentHealth = 0;
+
         Death death = GetComponent<Death>();
+
         if (death != null)
         {
             death.Die();
+            if ( GetComponent<PlayerPawn>() != null)
+            {
+                GameManager.instance.LoseGame();
+            }
         }
         else
         {
