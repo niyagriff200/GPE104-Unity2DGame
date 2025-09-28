@@ -607,7 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8211334e7ffbdf5448c8da6b5ef0e016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetsRemaining: 0
   players: []
   playerPawnPrefab: {fileID: 2016512256521040061, guid: fbb7f7ed03f64674bbe65490cf5af34d, type: 3}
   playerControllerPrefab: {fileID: 2998326143508169747, guid: 335bc38df476dcf44806139fdf826a74, type: 3}
@@ -625,7 +624,9 @@ MonoBehaviour:
   - {fileID: 1722557681}
   - {fileID: 498764279}
   - {fileID: 1168055201}
-  meteorSpawnInterval: 2
+  meteorSpawnInterval: 1
+  meteorCount: 10
+  targetsRemaining: 0
 --- !u!1 &1631358331
 GameObject:
   m_ObjectHideFlags: 0

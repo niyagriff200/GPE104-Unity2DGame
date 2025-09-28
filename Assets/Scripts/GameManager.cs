@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject meteorPrefab;
 
     [Header("Game Data")]
-    public float score;
-    public float topScore;
+    public float score = 0f;
+    public float topScore = 0f;
     public List<Transform> meteorSpawnPoints;
 
     [Header("Meteor Spawning")]
@@ -29,8 +29,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null) Destroy(gameObject);
-        else instance = this;
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     private void Start()
@@ -92,37 +98,43 @@ public class GameManager : MonoBehaviour
     public void AddScore(float amount)
     {
         score += amount;
-        Debug.Log("Score added. Current score: " + score);
     }
 
     public void WinGame()
     {
+        Debug.Log("You Win!");
+
         if (score > topScore)
         {
-            Debug.Log("You Win!");
             topScore = score;
+            Debug.Log("New top score: " + topScore);
         }
-        else
-        {
-            Debug.Log("You Lose!");
-        }
+
+        Debug.Log("Final score: " + score);
     }
+
 
     public void LoseGame()
     {
         Debug.Log("You Lose!");
+
+        if (score > topScore)
+        {
+            topScore = score;
+            Debug.Log("New top score: " + topScore);
+        }
+
+        Debug.Log("Final score: " + score);
     }
 
     public void AddTarget()
     {
         targetsRemaining++;
-        Debug.Log("Target added. Total: " + targetsRemaining);
     }
 
     public void RemoveTarget()
     {
         targetsRemaining--;
-        Debug.Log("Target removed. Remaining: " + targetsRemaining);
 
         if (targetsRemaining <= 0)
         {
@@ -144,5 +156,4 @@ public class GameManager : MonoBehaviour
                players[0].pawn.health != null &&
                players[0].pawn.health.IsAlive();
     }
-
 }

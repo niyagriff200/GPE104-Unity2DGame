@@ -2,18 +2,21 @@ using UnityEngine;
 
 public class MeteorTargetPlayer : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    public float moveSpeed = 1f;
     private Vector3 moveDirection;
 
-    void Start()
+    private void Start()
     {
         GameObject player = GameManager.instance.players[0].pawn.gameObject;
         moveDirection = (player.transform.position - transform.position).normalized;
         transform.up = moveDirection;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        if (GameManager.instance.players[0] != null)
+        {
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        }
     }
 }

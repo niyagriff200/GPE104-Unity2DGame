@@ -18,7 +18,7 @@ public class PlayerPawn : Pawn
 
     public override void Move(Vector3 moveVector)
     {
-        transform.position += (moveVector * moveSpeed) * Time.deltaTime;
+        transform.position += moveVector * moveSpeed * Time.deltaTime;
     }
 
     public override void Rotate(float angle)
@@ -33,7 +33,7 @@ public class PlayerPawn : Pawn
 
     public override void MoveTurbo(Vector3 moveVector)
     {
-        transform.position += (moveVector * turboSpeed) * Time.deltaTime;
+        transform.position += moveVector * turboSpeed * Time.deltaTime;
     }
 
     public override void TeleportRandom()
