@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
     {
         ShowMainMenu();
         PlayBackgroundMusic();
+        topScore = PlayerPrefs.GetFloat("TopScore", 0f);
+
     }
 
     private void Update()
@@ -122,6 +124,8 @@ public class GameManager : MonoBehaviour
         if (score > topScore)
         {
             topScore = score;
+            PlayerPrefs.SetFloat("TopScore", topScore);
+            PlayerPrefs.Save();
         }
     }
 

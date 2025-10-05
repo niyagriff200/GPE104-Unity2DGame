@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class HealthBar : Health
 {
     public Image healthFill;
-    public AddedPointsUI addedPointsUI;
 
 
     protected override void Start()
@@ -27,11 +26,6 @@ public class HealthBar : Health
         if (healthFill != null)
         {
             healthFill.fillAmount = PercentHealth();
-        }
-
-        if (addedPointsUI != null)
-        {
-            addedPointsUI.ShowPoints((int)amount);
         }
     }
 
