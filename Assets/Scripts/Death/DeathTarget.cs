@@ -11,11 +11,18 @@ public class DeathTarget : DeathDestroy
 
     public override void Die()
     {
-        if (hasDied == false)
+        if (!hasDied)
         {
             hasDied = true;
+
+            if (GameManager.instance.destroyClip != null)
+            {
+                AudioSource.PlayClipAtPoint(GameManager.instance.destroyClip, transform.position, 1f);
+            }
+
             GameManager.instance.RemoveTarget();
             base.Die();
         }
     }
+
 }

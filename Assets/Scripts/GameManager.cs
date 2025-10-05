@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+   
     [Header("Players")]
     public List<PlayerController> players;
 
@@ -20,12 +20,33 @@ public class GameManager : MonoBehaviour
 
     [Header("Meteor Spawning")]
     public float meteorSpawnInterval = 2f;
-    public int meteorCount = 10;
-    private int meteorsSpawned = 0;
     private float meteorSpawnTimer;
+    private List<GameObject> activeMeteors = new List<GameObject>();
 
     [Header("Target Tracking")]
     public int targetsRemaining;
+
+    [Header("Heal Pickup Spawning")]
+    public GameObject healPickupPrefab;
+    public float healSpawnInterval = 120f;
+    public float healSpawnRadius = 5f;
+    private float healSpawnTimer = 0f;
+    private List<GameObject> activeHealPickups = new List<GameObject>();
+
+
+    [Header("Game States")]
+    public GameObject mainMenuState;
+    public GameObject gameplayState;
+    public GameObject gameOverState;
+
+    [Header("Audio Clips")]
+    public AudioClip shootClip;
+    public AudioClip alarmClip;
+    public AudioClip damageClip;
+    public AudioClip destroyClip;
+    public AudioClip meteorClip;
+    public AudioClip backgroundMusic;
+    public AudioClip healClip;
 
     private void Awake()
     {
@@ -41,22 +62,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        players = new List<PlayerController>();
-        SpawnPlayerController();
-        SpawnPlayer();
+        ShowMainMenu();
+        PlayBackgroundMusic();
     }
 
     private void Update()
     {
-        if (meteorsSpawned < meteorCount)
+        if (gameplayState.activeInHierarchy)
         {
-            meteorSpawnTimer += Time.deltaTime;
-            if (meteorSpawnTimer >= meteorSpawnInterval)
-            {
-                SpawnMeteor();
-                meteorSpawnTimer = 0f;
-                meteorsSpawned++;
-            }
+            StartGameplay();
+        }
+
+        if (players.Count > 0 && players[0].pawn == null)
+        {
+            ShowGameOver();
         }
     }
 
@@ -69,6 +88,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject newMeteor = Instantiate(meteorPrefab, GetRandomSpawnPoint(), Quaternion.identity);
         newMeteor.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
+        activeMeteors.Add(newMeteor);
     }
 
     public void SpawnPlayerController()
@@ -98,7 +118,13 @@ public class GameManager : MonoBehaviour
     public void AddScore(float amount)
     {
         score += amount;
+
+        if (score > topScore)
+        {
+            topScore = score;
+        }
     }
+
 
     public void WinGame()
     {
@@ -109,21 +135,11 @@ public class GameManager : MonoBehaviour
             topScore = score;
             Debug.Log("New top score: " + topScore);
         }
-
-        Debug.Log("Final score: " + score);
     }
-
 
     public void LoseGame()
     {
         Debug.Log("You Lose!");
-
-        if (score > topScore)
-        {
-            topScore = score;
-            Debug.Log("New top score: " + topScore);
-        }
-
         Debug.Log("Final score: " + score);
     }
 
@@ -135,18 +151,6 @@ public class GameManager : MonoBehaviour
     public void RemoveTarget()
     {
         targetsRemaining--;
-
-        if (targetsRemaining <= 0)
-        {
-            if (IsPlayerAlive())
-            {
-                WinGame();
-            }
-            else
-            {
-                LoseGame();
-            }
-        }
     }
 
     public bool IsPlayerAlive()
@@ -156,4 +160,102 @@ public class GameManager : MonoBehaviour
                players[0].pawn.health != null &&
                players[0].pawn.health.IsAlive();
     }
+
+    public void ShowMainMenu()
+    {
+        gameplayState.SetActive(false);
+        gameOverState.SetActive(false);
+        mainMenuState.SetActive(true);
+       
+    }
+
+
+    public void ShowGameplay()
+    {
+        gameplayState.SetActive(true);
+        gameOverState.SetActive(false);
+        mainMenuState.SetActive(false);
+
+        meteorSpawnTimer = 0f;
+        score = 0f;
+        players = new List<PlayerController>();
+        activeMeteors.Clear();
+        SpawnPlayerController();
+        SpawnPlayer();
+    }
+
+    public void ShowGameOver()
+    {
+        gameplayState.SetActive(false);
+        gameOverState.SetActive(true);
+        mainMenuState.SetActive(false);
+
+        foreach (GameObject meteor in activeMeteors)
+        {
+            if (meteor != null)
+            {
+                Destroy(meteor);
+            }
+        }
+
+        activeMeteors.Clear();
+        players.Clear();
+        activeHealPickups.Clear();
+
+    }
+
+
+    public void StartGameplay()
+    {
+        if (IsPlayerAlive())
+        {
+            meteorSpawnTimer += Time.deltaTime;
+            if (meteorSpawnTimer >= meteorSpawnInterval)
+            {
+                SpawnMeteor();
+                meteorSpawnTimer = 0f;
+            }
+
+            healSpawnTimer += Time.deltaTime;
+            if (healSpawnTimer >= healSpawnInterval)
+            {
+                SpawnHealPickup();
+                healSpawnTimer = 0f;
+            }
+        }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Exit Game was pressed.");
+    }
+
+    public void SpawnHealPickup()
+    {
+        if (players.Count == 0 || players[0].pawn == null)
+            return;
+
+        Transform playerTransform = players[0].pawn.transform;
+        Vector2 offset = Random.insideUnitCircle * healSpawnRadius;
+        Vector3 spawnPos = playerTransform.position + new Vector3(offset.x, offset.y, 0f);
+
+        GameObject pickup = Instantiate(healPickupPrefab, spawnPos, Quaternion.identity);
+        activeHealPickups.Add(pickup);
+    }
+
+
+    public void PlayBackgroundMusic()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio != null && backgroundMusic != null)
+        {
+            
+            audio.clip = backgroundMusic;
+            audio.loop = true;
+            audio.spatialBlend = 0f;
+            audio.Play();
+        }
+    }
+
 }
