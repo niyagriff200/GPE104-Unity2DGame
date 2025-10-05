@@ -3,14 +3,14 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float maxHealth = 10.0f;
-    private float currentHealth;
+    protected float currentHealth;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth;
     }
 
-    public void Heal(float health)
+    public virtual void Heal(float health)
     {
         currentHealth += health;
 
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float health)
+    public virtual void TakeDamage(float health)
     {
         currentHealth -= health;
 
@@ -34,8 +34,8 @@ public class Health : MonoBehaviour
             {
                 death.Die();
                 if (GetComponent<PlayerPawn>() != null)
-                { 
-                    GameManager.instance.LoseGame(); 
+                {
+                    Debug.Log("There is no PlayerPawn");
                 }
             }
             else
@@ -55,12 +55,12 @@ public class Health : MonoBehaviour
         return currentHealth / maxHealth;
     }
 
-    public void HealToFull()
+    public virtual void HealToFull()
     {
         currentHealth = maxHealth;
     }
 
-    public void InstaKill()
+    public virtual void InstaKill()
     {
         currentHealth = 0;
 
@@ -69,9 +69,9 @@ public class Health : MonoBehaviour
         if (death != null)
         {
             death.Die();
-            if ( GetComponent<PlayerPawn>() != null)
+            if (GetComponent<PlayerPawn>() != null)
             {
-                GameManager.instance.LoseGame();
+                Debug.Log("There is no PlayerPawn");
             }
         }
         else

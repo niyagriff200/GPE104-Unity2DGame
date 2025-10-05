@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class DamageOnCollision : MonoBehaviour
 {
@@ -7,12 +8,14 @@ public class DamageOnCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<Meteor>() != null)
+        GameObject target = other.gameObject;
+
+        if (target.GetComponent<Meteor>() != null)
         {
             GameManager.instance.AddScore(10f);
         }
 
-        DamageFlash flash = other.gameObject.GetComponent<DamageFlash>();
+        DamageFlash flash = target.GetComponent<DamageFlash>();
         if (flash != null)
         {
             flash.Flash();
@@ -24,35 +27,37 @@ public class DamageOnCollision : MonoBehaviour
             shake.Shake();
         }
 
-        KnockbackOnDamage knockback = other.gameObject.GetComponent<KnockbackOnDamage>();
+        KnockbackOnDamage knockback = target.GetComponent<KnockbackOnDamage>();
         if (knockback != null)
         {
-            Vector3 hitDirection = (other.transform.position - transform.position).normalized;
+            Vector3 hitDirection = (target.transform.position - transform.position).normalized;
             knockback.ApplyKnockback(hitDirection);
         }
 
-        Health health = other.gameObject.GetComponent<Health>();
+        Health health = target.GetComponent<Health>();
         if (health != null)
         {
-            if (instantKill == true)
+            if (instantKill)
             {
                 health.InstaKill();
             }
             else
             {
                 health.TakeDamage(damageAmount);
+
+
+                if (GameManager.instance.damageClip != null)
+                {
+                    AudioSource.PlayClipAtPoint(GameManager.instance.damageClip, target.transform.position, 1f);
+                }
+
             }
         }
 
+      
         if (GetComponent<Bullet>() != null)
         {
             Destroy(gameObject);
-        }
-
-        Death death = GetComponent<Death>();
-        if (death != null)
-        {
-            death.Die();
         }
     }
 }

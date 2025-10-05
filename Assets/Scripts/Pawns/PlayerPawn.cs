@@ -11,9 +11,45 @@ public class PlayerPawn : Pawn
     public float minY;
     public float maxY;
 
+    [SerializeField] private AudioSource alarmSource;
+    private bool alarmActive = false;
+
     protected override void Start()
     {
         base.Start();
+
+        // Make sure the alarmSource is ready
+        if (alarmSource == null)
+            alarmSource = GetComponent<AudioSource>();
+
+        alarmSource.loop = true;
+        alarmSource.spatialBlend = 0f;
+        alarmSource.volume = 1f;
+    }
+
+    private void Update()
+    {
+        float healthPercent = health.PercentHealth();
+
+        // Trigger alarm when health drops below 25% and alarm isn’t already playing
+        if (healthPercent <= 0.25f && health.IsAlive() && !alarmActive)
+        {
+            if (GameManager.instance.alarmClip == null)
+            {
+                Debug.LogError("ALARM CLIP IS NULL!");
+                return;
+            }
+
+            alarmSource.clip = GameManager.instance.alarmClip;
+            alarmSource.Play();
+            alarmActive = true;
+        }
+        // Stop alarm when health goes back above 25% or player dies
+        else if ((healthPercent > 0.25f || !health.IsAlive()) && alarmActive)
+        {
+            alarmSource.Stop();
+            alarmActive = false;
+        }
     }
 
     public override void Move(Vector3 moveVector)

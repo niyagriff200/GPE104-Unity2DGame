@@ -1,25 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DestroyOffScreen : MonoBehaviour
 {
-    public float buffer = 1f;
-
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-
-        if (pos.x < -buffer || pos.x > 1 + buffer || pos.y < -buffer || pos.y > 1 + buffer)
+        Death otherObjectDeathComponent = other.gameObject.GetComponent<Death>();
+        if (otherObjectDeathComponent != null)
         {
-            Death deathComponent = GetComponent<Death>();
-
-            if (deathComponent != null)
-            {
-                deathComponent.Die();
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            otherObjectDeathComponent.Die();
+        }
+        else
+        {
+            Destroy(other.gameObject);
         }
     }
 }
