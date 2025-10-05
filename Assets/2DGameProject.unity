@@ -661,7 +661,7 @@ Transform:
   m_GameObject: {fileID: 411629378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1042078, y: -5.87, z: 0.053687748}
+  m_LocalPosition: {x: 0.81, y: -9.31, z: 0.053687748}
   m_LocalScale: {x: 22.825, y: 1.345, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -811,7 +811,7 @@ Transform:
   m_GameObject: {fileID: 485338949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -10.1, y: -0.383574, z: 0.053687748}
+  m_LocalPosition: {x: -11.42, y: -0.383574, z: 0.053687748}
   m_LocalScale: {x: 22.824999, y: 1.3449999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1326,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 608040821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 12.04, y: -0.383574, z: 0.053687748}
+  m_LocalPosition: {x: 12.93, y: -0.383574, z: 0.053687748}
   m_LocalScale: {x: 22.824999, y: 1.3449999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2650,7 +2650,7 @@ Transform:
   m_GameObject: {fileID: 1469267757}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6942077, y: 6.53, z: 0.053687748}
+  m_LocalPosition: {x: 0.71, y: 8.32, z: 0.053687748}
   m_LocalScale: {x: 22.825, y: 1.345, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3019,7 +3019,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: f5a584a0983c130459fed45ce94a11ec, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3143,7 +3143,7 @@ MonoBehaviour:
   - {fileID: 1722557681}
   - {fileID: 498764279}
   - {fileID: 1168055201}
-  meteorSpawnInterval: 2
+  meteorSpawnInterval: 10
   targetsRemaining: 0
   healPickupPrefab: {fileID: 1207900290630376517, guid: 8e7349bd5af16254d95d94e13fb50e9e, type: 3}
   healSpawnInterval: 90
@@ -3165,7 +3165,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611018244}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -3345,7 +3345,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -4158660594641659784, guid: 58b7aeb8c25bf5347ac3814a8138fd02, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3982,7 +3982,7 @@ GameObject:
   - component: {fileID: 2117767556}
   - component: {fileID: 2117767555}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: Exit Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

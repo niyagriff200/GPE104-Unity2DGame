@@ -12,9 +12,9 @@ public class DamageOnCollision : MonoBehaviour
 
         if (target.GetComponent<Meteor>() != null)
         {
-            GameManager.instance.AddScore(10f);
+           GameManager.instance.AddScore(10f);
         }
-
+        
         DamageFlash flash = target.GetComponent<DamageFlash>();
         if (flash != null)
         {
@@ -49,6 +49,7 @@ public class DamageOnCollision : MonoBehaviour
                 if (GameManager.instance.damageClip != null)
                 {
                     AudioSource.PlayClipAtPoint(GameManager.instance.damageClip, target.transform.position, 1f);
+
                 }
 
             }

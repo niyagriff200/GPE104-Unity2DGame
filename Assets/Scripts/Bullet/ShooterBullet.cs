@@ -20,7 +20,7 @@ public class ShooterBullet : Shooter
 
                 if (GameManager.instance.shootClip != null && audioSource != null)
                 {
-                    audioSource.PlayOneShot(GameManager.instance.shootClip);
+                    audioSource.PlayOneShot(GameManager.instance.shootClip, 1f);
                 }
             }
             else
