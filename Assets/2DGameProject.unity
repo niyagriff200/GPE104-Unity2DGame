@@ -3143,7 +3143,7 @@ MonoBehaviour:
   - {fileID: 1722557681}
   - {fileID: 498764279}
   - {fileID: 1168055201}
-  meteorSpawnInterval: 10
+  meteorSpawnInterval: 3
   targetsRemaining: 0
   healPickupPrefab: {fileID: 1207900290630376517, guid: 8e7349bd5af16254d95d94e13fb50e9e, type: 3}
   healSpawnInterval: 90
@@ -3165,7 +3165,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611018244}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
